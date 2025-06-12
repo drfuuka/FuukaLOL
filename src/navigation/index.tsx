@@ -1,0 +1,21 @@
+// src/navigation/index.tsx
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from '../screens/Home';
+import GalleryScreen from '../screens/Gallery';
+import EditorScreen from '../screens/Editor';
+import { RootStackParamList } from './types';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export default function Navigation() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Gallery" component={GalleryScreen} />
+        <Stack.Screen name="Editor" component={EditorScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
