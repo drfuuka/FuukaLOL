@@ -1,7 +1,7 @@
 import { Button, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/types';
+import { RootStackParamList } from '../../navigation/navigation.types';
 import styles from './style';
 import MemeTemplateSelector from '../../components/MemeTemplateSelector';
 import MemeCanvas from '../../components/MemeCanvas';

@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import colors from './src/theme/colors';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Navigation from './src/navigation';
+import Navigation from './src/navigation/navigation';
 
 
 /**
