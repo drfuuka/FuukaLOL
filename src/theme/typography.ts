@@ -1,5 +1,11 @@
-const font = {
-    bebasNeue: 'BebasNeue-Regular',
+import {Platform} from 'react-native';
+
+export const Fonts = {
+  BebasNeue: Platform.select({
+    ios: 'BebasNeue',
+    android: 'BebasNeue-Regular',
+  }),
 };
 
-export default font;
+export default Fonts;
+

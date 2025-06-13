@@ -1,16 +1,23 @@
 import React from 'react';
-import { Text, Pressable } from 'react-native';
+import { Text, View } from 'react-native';
 import styles from './create-button.style';
+import Button from '@/components/base/Button/button.component';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/navigation/navigation.types';
 
 const CreateMemeButton = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const handlePress = () => {
-    console.log('Create Meme Pressed');
+    navigation.navigate('Editor');
   };
 
   return (
-    <Pressable style={styles.button} onPress={handlePress}>
-      <Text style={styles.buttonText}>Create Meme</Text>
-    </Pressable>
+    <View style={styles.wrapper}>
+      <Button style={styles.button} onPress={handlePress}>
+        <Text style={styles.buttonText}>Create Meme</Text>
+      </Button>
+    </View>
   );
 };
 

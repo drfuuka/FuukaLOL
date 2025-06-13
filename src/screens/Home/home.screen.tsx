@@ -12,9 +12,8 @@ const mockHistory = [
 ];
 
 const HomeScreen = () => {
-
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
       <Header />
 
       <View style={styles.buttonWrapper}>

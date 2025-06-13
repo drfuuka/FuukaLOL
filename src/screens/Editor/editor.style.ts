@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flexGrow: 1,
-    paddingHorizontal: 16,
     paddingTop: 40,
     backgroundColor: colors.background,
   },
@@ -17,9 +16,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 'auto',
   },
-  historyWrapper: {
-    marginTop: 'auto',
-    marginBottom: 32,
+  canvasWrapper: {
+    flex: 1,
   },
 });
 

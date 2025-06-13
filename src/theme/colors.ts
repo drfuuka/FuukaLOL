@@ -1,6 +1,6 @@
 const colors = {
   background: '#ffffff',
-  canvasBackground: '#ffffff',
+  canvasBackground: '#f4f4f4',
   buttonBackground: '#eeeeee',
   buttonText: '#000000',
 };

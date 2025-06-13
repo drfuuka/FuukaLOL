@@ -1,3 +1,4 @@
+import Fonts from '@/theme/typography';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontFamily: 'BebasNeue',
+    fontFamily: Fonts.BebasNeue,
     textAlign: 'center',
   },
   subTitle: {
