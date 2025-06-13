@@ -16,13 +16,15 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.buttonWrapper}>
-        <Button style={styles.leftButton} onPress={handleBack}>
+        <Button style={styles.button} onPress={handleBack}>
           <ArrowLeft/>
         </Button>
       </View>
-      <Button>
-        <Export/>
-      </Button>
+      <View style={styles.buttonWrapper}>
+        <Button style={styles.button} onPress={handleBack}>
+          <Export/>
+        </Button>
+      </View>
     </View>
   );
 };

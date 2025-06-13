@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
   canvasWrapper: {
     flex: 1,
   },
+  toolBarWrapper: {
+    position: 'static',
+    bottom: 0,
+  },
 });
 
 export default styles;

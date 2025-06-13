@@ -1,13 +1,9 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './meme-history.style';
+import { TMemeHistoryProps } from './meme-history.type';
 
-type MemeHistoryProps = {
-  title: string;
-  imageUrl: string;
-};
-
-const Item = ({ title, imageUrl }: MemeHistoryProps) => {
+const Item = ({ title, imageUrl }: TMemeHistoryProps) => {
   return (
     <View style={styles.item}>
       <Image source={{ uri: imageUrl }} style={styles.image} />

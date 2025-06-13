@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -7,9 +7,7 @@ import Animated, {
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import styles from './canvas.style';
 
-const Canvas = () => {
-  const [backgroundUri] = useState<string>('https://i.imgflip.com/1bij.jpg');
-
+const Canvas = ({ backgroundUri }: { backgroundUri: string }) => {
   // Shared values for gesture
   const scale = useSharedValue(1);
   const translationX = useSharedValue(0);

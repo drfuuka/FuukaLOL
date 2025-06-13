@@ -1,3 +1,4 @@
+import colors from '@/theme/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -6,7 +7,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   button: {
-    backgroundColor: '#ff0',
+    backgroundColor: colors.primary,
     borderRadius: 24,
     paddingVertical: 12,
     paddingHorizontal: 32,
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#000',
+    color: colors.buttonText,
   },
 });
 

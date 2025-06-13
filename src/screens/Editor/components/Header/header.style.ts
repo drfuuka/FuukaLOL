@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 99,
     overflow: 'hidden',
   },
-  leftButton: {
+  button: {
     backgroundColor: 'transparent',
     borderRadius: 99,
     padding: 25,
