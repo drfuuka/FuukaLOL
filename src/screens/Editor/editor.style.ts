@@ -2,14 +2,11 @@ import colors from '@/theme/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: colors.background,
-  },
   container: {
+    backgroundColor: colors.background,
     flexDirection: 'column',
     flexGrow: 1,
     paddingTop: 40,
-    backgroundColor: colors.background,
   },
   buttonWrapper: {
     marginVertical: 24,
