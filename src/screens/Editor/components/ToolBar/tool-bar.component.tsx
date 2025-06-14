@@ -4,11 +4,12 @@ import { TItemProps } from "./tool-bar.type";
 import { Picture } from "@/assets/icons";
 import Button from "@/components/base/Button/button.component";
 
-const ToolBar = ({ onImportImage }: { onImportImage?: () => void }) => {
+const ToolBar = ({ onImportImage, onAddText }: { onImportImage?: () => void; onAddText?: () => void }) => {
   return (
     <View style={styles.container}>
       <View>
         <Item title="Picture" icon={<Picture/>} onPress={onImportImage}/>
+        <Item title="Text" icon={<Picture/>} onPress={onAddText}/>
       </View>
     </View>
   );

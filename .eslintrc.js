@@ -5,5 +5,6 @@ module.exports = {
     'react-native/no-inline-styles': 'off',
     'curly': 'off',
     '@typescript-eslint/no-shadow': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };

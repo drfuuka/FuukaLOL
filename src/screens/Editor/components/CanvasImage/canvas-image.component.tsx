@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image} from 'react-native';
+import {Image, View} from 'react-native';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
@@ -83,7 +83,23 @@ const CanvasImage = ({uri, canvasSize, isActive, onSelect}: TCanvasImageProps) =
       translationY.value = clamp(translationY.value, -maxY, maxY);
     });
 
-  const composedGesture = Gesture.Simultaneous(tapGesture, panGesture, pinchGesture);
+  const resizeGesture = Gesture.Pan()
+    .onBegin(() => {
+      offsetScale.value = scale.value;
+    })
+    .onUpdate(e => {
+      const delta = Math.max(e.translationX, e.translationY);
+      scale.value = clamp(offsetScale.value + delta / 100, 0.3, 5);
+    })
+    .onEnd(() => {
+      offsetScale.value = scale.value;
+    });
+
+  const composedGesture = Gesture.Simultaneous(
+    tapGesture,
+    panGesture,
+    pinchGesture
+  );
 
   const animatedStyle = useAnimatedStyle(() => {
     const w = imageAspectRatio > 1 ? canvasSize : canvasSize * imageAspectRatio;
@@ -118,6 +134,25 @@ const CanvasImage = ({uri, canvasSize, isActive, onSelect}: TCanvasImageProps) =
             },
           ]}>
           <Image source={{uri}} style={styles.image} resizeMode="contain" />
+
+          {isActive && (
+            <GestureDetector gesture={resizeGesture}>
+              <View
+                style={{
+                  position: 'absolute',
+                  width: 20,
+                  height: 20,
+                  backgroundColor: 'dodgerblue',
+                  bottom: -8,
+                  right: -8,
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: 'white',
+                  zIndex: 10,
+                }}
+              />
+            </GestureDetector>
+          )}
         </Animated.View>
       </GestureDetector>
     </>
