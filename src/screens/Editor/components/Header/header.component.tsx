@@ -6,8 +6,9 @@ import styles from './header.style';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/navigation/navigation.types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { THeaderProps } from './header.type';
 
-const Header = () => {
+const Header = ({onExport} : THeaderProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const handleBack = () => {
     navigation.goBack();
@@ -21,7 +22,7 @@ const Header = () => {
         </Button>
       </View>
       <View style={styles.buttonWrapper}>
-        <Button style={styles.button} onPress={handleBack}>
+        <Button style={styles.button} onPress={onExport}>
           <Export/>
         </Button>
       </View>

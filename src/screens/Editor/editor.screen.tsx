@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {
+  Alert,
   Dimensions,
   KeyboardAvoidingView,
   Platform,
@@ -19,6 +20,9 @@ import DeleteButton from './components/DeleteButton/delete-button.component';
 import CanvasText from './components/CanvasText/canvas-text.component';
 import uuid from 'react-native-uuid';
 import {TTextItem} from './components/CanvasText/canvas-text.type';
+import ViewShot, {captureRef} from 'react-native-view-shot';
+import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import {requestStoragePermission} from '@/utils/permission';
 
 const CANVAS_SIZE = Dimensions.get('window').width * 0.9;
 
@@ -35,6 +39,7 @@ const EditorScreen = () => {
   const [pendingText, setPendingText] = useState('');
 
   const isTouchingTextRef = useRef(false);
+  const viewShotRef = useRef(null);
 
   const handleImportImage = async () => {
     const result = await launchImageLibrary({
@@ -99,6 +104,36 @@ const EditorScreen = () => {
     }
   };
 
+  const handleExportCanvas = async () => {
+    try {
+      const hasPermission = await requestStoragePermission();
+      if (!hasPermission) {
+        Alert.alert(
+          'Permission Denied',
+          'Storage access is required to save the image.',
+        );
+        return;
+      }
+
+      const uri = await captureRef(viewShotRef, {
+        format: 'png',
+        quality: 1,
+      });
+
+      await CameraRoll.save(uri, {type: 'photo'});
+      Alert.alert(
+        'Saved to Gallery',
+        'Canvas has been saved to your photo gallery!',
+      );
+    } catch (error) {
+      console.error('Export failed:', error);
+      Alert.alert(
+        'Export Failed',
+        'Something went wrong while saving the image.',
+      );
+    }
+  };
+
   const tapOutsideGesture = Gesture.Tap()
     .runOnJS(true)
     .onStart(() => {
@@ -112,37 +147,40 @@ const EditorScreen = () => {
       }, 100);
     });
 
-    return (
-      <GestureDetector gesture={tapOutsideGesture}>
-        <View style={{flex: 1}}>
-          <KeyboardAvoidingView
-            style={{flex: 1}}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
-            
-            <View style={{flex: 1}}>
-              <Header />
-    
-              {isCreatingText && (
-                <TextInput
-                  value={pendingText}
-                  onChangeText={setPendingText}
-                  placeholder="Enter your text..."
-                  autoFocus
-                  onSubmitEditing={handleSubmitText}
-                  onBlur={() => setIsCreatingText(false)}
-                  style={{
-                    padding: 12,
-                    borderWidth: 1,
-                    borderColor: '#ccc',
-                    margin: 16,
-                    backgroundColor: '#fff',
-                  }}
-                />
-              )}
-    
-              <View style={[styles.canvasWrapper, {flex: 1}]}>
-                <CanvasWrapper>
+  return (
+    <GestureDetector gesture={tapOutsideGesture}>
+      <View style={styles.container}>
+        <KeyboardAvoidingView
+          style={styles.canvasWrapper}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
+          <View style={styles.canvasWrapper}>
+            <Header onExport={handleExportCanvas} />
+
+            {isCreatingText && (
+              <TextInput
+                value={pendingText}
+                onChangeText={setPendingText}
+                placeholder="Enter your text..."
+                autoFocus
+                onSubmitEditing={handleSubmitText}
+                onBlur={() => setIsCreatingText(false)}
+                style={{
+                  padding: 12,
+                  borderWidth: 1,
+                  borderColor: '#ccc',
+                  margin: 16,
+                  backgroundColor: '#fff',
+                }}
+              />
+            )}
+
+            <View style={styles.canvasWrapper}>
+              <CanvasWrapper>
+                <ViewShot
+                  ref={viewShotRef}
+                  style={styles.viewShot}
+                  options={{format: 'png', quality: 1}}>
                   <Canvas style={{width: CANVAS_SIZE, height: CANVAS_SIZE}}>
                     {images.map(image => (
                       <CanvasImage
@@ -167,23 +205,23 @@ const EditorScreen = () => {
                       />
                     ))}
                   </Canvas>
-                  {selectedId && <DeleteButton onDelete={handleDeleteSelected} />}
-                </CanvasWrapper>
-              </View>
+                </ViewShot>
+                {selectedId && <DeleteButton onDelete={handleDeleteSelected} />}
+              </CanvasWrapper>
             </View>
-          </KeyboardAvoidingView>
-    
-          {/* ToolBar tetap fixed di bawah, gak kegeser */}
-          <View style={styles.toolBarWrapper}>
-            <ToolBar
-              onImportImage={handleImportImage}
-              onAddText={handleAddText}
-            />
           </View>
+        </KeyboardAvoidingView>
+
+        {/* ToolBar tetap fixed di bawah, gak kegeser */}
+        <View style={styles.toolBarWrapper}>
+          <ToolBar
+            onImportImage={handleImportImage}
+            onAddText={handleAddText}
+          />
         </View>
-      </GestureDetector>
-    );
-    
+      </View>
+    </GestureDetector>
+  );
 };
 
 export default EditorScreen;

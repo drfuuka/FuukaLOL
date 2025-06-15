@@ -1,3 +1,4 @@
+import colors from '@/theme/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -6,6 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 12,
     alignItems: 'center',
+    backgroundColor: colors.background,
   },
   buttonWrapper: {
     borderRadius: 99,

@@ -12,7 +12,7 @@ import Navigation from './src/navigation/navigation';
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={{flex: 1}}>
         <Navigation/>
       </GestureHandlerRootView>
     </SafeAreaView>

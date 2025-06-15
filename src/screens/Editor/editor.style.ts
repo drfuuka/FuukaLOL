@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
   canvasWrapper: {
     flex: 1,
   },
+  viewShot: {
+    flex: 1,
+  },
   toolBarWrapper: {
     position: 'static',
     bottom: 0,
