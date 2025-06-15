@@ -1,5 +1,5 @@
 import colors from '@/theme/colors';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +22,23 @@ const styles = StyleSheet.create({
   toolBarWrapper: {
     position: 'static',
     bottom: 0,
+  },
+  hintWrapper: {
+    position: 'absolute',
+    bottom: 120,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  hint: {
+    backgroundColor: '#000',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  hintText: {
+    color: '#fff',
+    fontSize: 14,
   },
 });
 

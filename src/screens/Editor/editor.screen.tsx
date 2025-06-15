@@ -1,9 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Alert,
+  Animated,
   Dimensions,
   KeyboardAvoidingView,
   Platform,
+  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -37,9 +39,31 @@ const EditorScreen = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isCreatingText, setIsCreatingText] = useState(false);
   const [pendingText, setPendingText] = useState('');
-
   const isTouchingTextRef = useRef(false);
   const viewShotRef = useRef(null);
+
+  const [showHint, setShowHint] = useState(true);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (showHint) {
+      console.log('sni');
+      
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.delay(2500),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]).start(() => setShowHint(false));
+    }
+  }, [showHint]);
 
   const handleImportImage = async () => {
     const result = await launchImageLibrary({
@@ -211,6 +235,22 @@ const EditorScreen = () => {
             </View>
           </View>
         </KeyboardAvoidingView>
+
+        {/* Hint popup */}
+        {showHint && (
+          <Animated.View
+            style={[
+              styles.hintWrapper,
+              {
+                opacity: fadeAnim,
+              },
+            ]}>
+            <View
+              style={styles.hint}>
+              <Text style={styles.hintText}>Hold text to edit</Text>
+            </View>
+          </Animated.View>
+        )}
 
         {/* ToolBar tetap fixed di bawah, gak kegeser */}
         <View style={styles.toolBarWrapper}>
