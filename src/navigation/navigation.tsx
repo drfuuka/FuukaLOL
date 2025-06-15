@@ -2,7 +2,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/Home/home.screen';
-import GalleryScreen from '../screens/Gallery';
 import EditorScreen from '../screens/Editor/editor.screen';
 import { RootStackParamList } from './navigation.types';
 
@@ -18,7 +17,6 @@ export default function Navigation() {
         }}
       >
         <Stack.Screen name="Home"   component={HomeScreen} />
-        <Stack.Screen name="Gallery" component={GalleryScreen} />
         <Stack.Screen name="Editor" component={EditorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
